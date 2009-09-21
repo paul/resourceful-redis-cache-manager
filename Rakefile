@@ -46,3 +46,7 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+desc "Start redis server"
+task :redis do
+  exec "redis-server /etc/conf.d/redis.conf"
+end
