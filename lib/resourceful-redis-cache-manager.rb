@@ -4,6 +4,7 @@ require 'redis'
 require 'json'
 require 'digest/md5'
 require 'hitimes'
+require 'uuidtools'
 
 module Resourceful
   class RedisCacheManager
@@ -44,7 +45,7 @@ module Resourceful
 
     def store(request, response)
       @logger.info("Storing in cache")
-      key = Digest::MD5.hexdigest(request.uri.to_s)
+      key = UUIDTools::UUID.random_create
 
       response.header['Cache-Control'].match(/max-age=(\d+)/) if response.header['Cache-Control']
       expires = $1
